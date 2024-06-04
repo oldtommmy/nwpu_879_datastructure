@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(nwpu)
+project(master_exam)
 
 set(CMAKE_CXX_STANDARD 11)
 

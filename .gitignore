@@ -5,3 +5,5 @@
 
 # 排除 .gitignore
 /.gitignore
+# 排除 .DS_Store
+/.DS_Store
