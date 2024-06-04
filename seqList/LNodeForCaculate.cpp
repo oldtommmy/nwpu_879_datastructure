@@ -1,4 +1,5 @@
 #include <iostream>
+#define NULL nullptr
 /**
  * 使用链表表示两个长整数相加
  * 1. 原链表由地位开始存储

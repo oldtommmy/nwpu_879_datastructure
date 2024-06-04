@@ -31,12 +31,21 @@ bool empty(SeqStack stack) {
 }
 
 /**
+ * 判断栈满
+ * @param stack
+ * @return
+ */
+bool full(SeqStack stack) {
+    return stack.top == MAXSIZE - 1;
+}
+
+/**
  * 入栈
  * @param stack
  * @param value
  */
 bool push(SeqStack &stack, int value) {
-    if (stack.top == MAXSIZE - 1) {
+    if (full(stack)) {
         return false;
     }
     stack.data[stack.top + 1] = value;
@@ -64,9 +73,11 @@ int main(){
     SeqStack stack;
     int popValue;
     init(stack);
+    //入栈 0 1 2 3 4
     for (int i = 0; i < MAXSIZE; ++i) {
         push(stack, i);
     }
+    //出栈 4 3 2 1 0
     while (!empty(stack)) {
         pop(stack, popValue);
         printf("%d ", popValue);

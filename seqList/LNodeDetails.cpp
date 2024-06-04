@@ -7,7 +7,7 @@
 //结点的定义
 typedef struct LNode{
     int data;
-    struct LNode *next;
+    struct LNode* next;
 } LNode; //别名标识处
 
 /**
@@ -35,7 +35,67 @@ int getLen(LNode *head) {
     return len;
 }
 
+/**
+ * 按下标查找元素
+ * @param index 从 0 开始
+ * @param head 头结点
+ * @return 找到的值 未找到返回NULL
+ */
+LNode* findByIndex(int index, LNode *head) {
+    LNode *current = head->next;
+    int i = 0;
+    //遍历链表 找到index的位置
+    while (current != NULL && i < index) {
+        current = current->next;
+        i++;
+    }
+    return current;
+}
 
+/**
+ * 按值查找元素
+ * @param target
+ * @param head
+ * @return
+ */
+LNode* findByValue(int target, LNode *head) {
+    LNode* current = head->next;
+    //遍历链表
+    while (current != NULL) {
+        if (current->data == target) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
+/**
+ * 插入元素
+ * @param index 从 0 开始
+ * @param data 待插入的数据
+ * @param head  链表的头结点
+ * @return 是否插入成功
+ */
+bool insert(int index, int data, LNode *&head) {
+    LNode *pre = head;
+    int i = 0;
+    //找到index的前一个结点
+    while (pre != NULL && i < index) {
+        pre = pre->next; // NULL->next 会报错
+        i++;
+    }
+    //如果pre为NULL 说明index超出了链表的长度
+    if (pre == NULL) {
+        return false;
+    }
+    //给新添加的结点分配空间
+    LNode *current = (LNode*) malloc(sizeof(LNode));
+    current->data = data;
+    current->next = pre->next;
+    pre->next = current;
+    return true;
+}
 
 /**
  * 尾插法创建链表
@@ -70,6 +130,7 @@ void createByTail(LNode *&head, int data[], int size) {
 void createByHead(LNode *&head, int data[], int size) {
     //head是头结点 current是新添加的结点
     LNode *current;
+    init(head);
     for (int i = 0; i < size; ++i) {
         //为新添加的结点分配空间
         current = (LNode*) malloc(sizeof(LNode));
@@ -88,8 +149,7 @@ void createByHead(LNode *&head, int data[], int size) {
  */
 bool deleteValue(int target, LNode *&n) {
     //我们在删除时，需要知道前一个node，这样才能将后半部分拼接起来
-    LNode *pre;
-    pre = n;
+    LNode *pre = n;
     //我们传入的n 是一个表头结点 实际上不含data
     //n->next才是第一个带有data的结点
     while (pre->next != NULL) {
@@ -105,25 +165,25 @@ bool deleteValue(int target, LNode *&n) {
     }
     //注意释放内存
     LNode *toBeDeleted = pre->next;
-    pre->next = pre->next->next;
+    pre->next = toBeDeleted->next;
     free(toBeDeleted);
     return true;
 }
+
 
 
 /**
  * 合并两个链表 尾插法
  * @param n1
  * @param n2
- * @param res
+ * @param res 合并后的链表
  */
 void merge(LNode *n1, LNode *n2, LNode *&res) {
     //因为使用的是带表头结点的链表 所以这里指向n1->next
     LNode *p = n1->next;
     LNode *q = n2->next;
     LNode *tail;    //始终指向res的尾部
-    res = (LNode*) malloc(sizeof(LNode)); //给 res 分配一个内存
-    res->next = NULL;
+    init(res);
     tail = res;
     free(n1);
     free(n2);
@@ -199,7 +259,7 @@ void mergeByHead(LNode *n1, LNode *n2, LNode *&res) {
  */
 void mergeByHeadWithoutNewHead(LNode *n1, LNode *n2, LNode *&res) {
     res = (LNode*) malloc(sizeof(LNode));
-    LNode *head  = n1;
+    LNode *head = n1;
     LNode *current;
     LNode *p = n1->next;
     LNode *q = n2->next;

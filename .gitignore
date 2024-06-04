@@ -1,0 +1,7 @@
+# 排除 cmake-build-debug
+# 排除 .idea目录
+/.idea
+/cmake-build-debug
+
+# 排除 .gitignore
+/.gitignore

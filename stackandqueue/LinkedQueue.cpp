@@ -3,6 +3,7 @@
 // Created by 陈远航 on 2023/6/30.
 //
 #include <iostream>
+#define NULL nullptr // clion 总是提示我使用nullptr 报 warning 很烦人 所以这里定义NULL为nullptr
 
 //队结点的定义
 typedef struct QNode{
@@ -16,23 +17,35 @@ typedef struct LinkedQueue{
     struct QNode* rear;
 } LinkedQueue;
 
-
+/**
+ * 初始化队列
+ * @param queue
+ */
 void init(LinkedQueue *&queue) {
     queue = (LinkedQueue*) malloc(sizeof(LinkedQueue));
     queue->rear = queue->front = NULL;
 }
 
-//队空
+/**
+ * 判断队空
+ * @param queue
+ * @return
+ */
 bool empty(LinkedQueue *queue) {
     return queue->front == NULL;
 }
 
-//入队
-//只剩下单个 node 时，应该特别处理
+/**
+ * 入队
+ * @param queue
+ * @param value 入队的值
+ */
 void offer(LinkedQueue *&queue, int value) {
     QNode *node = (QNode*) malloc(sizeof(QNode));
     node->data = value;
     node->next = NULL;
+
+    //队列为空时 特殊处理 front和rear都指向node
     if (queue->rear == NULL) {
         queue->rear = node;
         queue->front = node;
@@ -42,8 +55,12 @@ void offer(LinkedQueue *&queue, int value) {
     }
 }
 
-//出队
-//注意此处 只剩下单个 node 时，应该特别处理
+/**
+ * 出队
+ * @param queue
+ * @param value 出队的值
+ * @return
+ */
 bool poll(LinkedQueue *&queue, int &value) {
     QNode *node;
     if (empty(queue)) {
@@ -52,7 +69,10 @@ bool poll(LinkedQueue *&queue, int &value) {
 
     node = queue->front;
     value = node->data;
-    if (queue->front == queue->rear) { //要保证queue为空时，rear和front都指向NULL，而不是野指针
+
+    //队列只有一个元素时 特殊处理
+    //要保证queue为空时，rear和front都指向NULL，而不是野指针
+    if (queue->front == queue->rear) {
         queue->rear = queue->front = NULL;
     } else {
         queue->front = node->next;

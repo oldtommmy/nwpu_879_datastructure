@@ -13,7 +13,7 @@ void create(polynode*& p) {
     polynode* tail;
     tail = p;
     while (true) {
-        auto* node = (polynode*)malloc(sizeof(polynode));
+        polynode* node = (polynode*)malloc(sizeof(polynode));
         int exp;
         float ceof;
         printf("input ceof:");
