@@ -31,3 +31,4 @@ add_executable(LNodeForCaculate seqList/LNodeForCaculate.cpp)
 add_executable(Polynode seqList/Polynode.cpp)
 
 add_executable(PriorityQueue stackandqueue/PriorityQueue.cpp)
+add_executable(MatchByStack stackandqueue/MatchByStack.cpp)
