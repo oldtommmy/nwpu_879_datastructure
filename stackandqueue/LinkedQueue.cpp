@@ -5,6 +5,8 @@
 #include <iostream>
 #define NULL nullptr // clion 总是提示我使用nullptr 报 warning 很烦人 所以这里定义NULL为nullptr
 
+using namespace std;
+
 //队结点的定义
 typedef struct QNode{
     int data;
@@ -46,7 +48,7 @@ void offer(LinkedQueue *&queue, int value) {
     node->next = NULL;
 
     //队列为空时 特殊处理 front和rear都指向node
-    if (queue->rear == NULL) {
+    if (empty(queue)) {
         queue->rear = node;
         queue->front = node;
     } else {

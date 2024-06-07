@@ -54,8 +54,10 @@ bool pop(LNode *&node, int &popValue) {
         return false;
     }
 
+    LNode *cur = node->next;
     popValue = node->next->data;
-    node->next = node->next->next;
+    node->next = cur->next;
+    free(cur);
     return true;
 }
 

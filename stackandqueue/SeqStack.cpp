@@ -9,7 +9,7 @@
  */
 typedef struct SeqStack{
     int data[MAXSIZE];
-    int top; //栈顶指针
+    int top; //栈顶指针 指向的是栈顶元素
 } SeqStack;
 
 /**
@@ -48,8 +48,8 @@ bool push(SeqStack &stack, int value) {
     if (full(stack)) {
         return false;
     }
-    stack.data[stack.top + 1] = value;
     stack.top++;
+    stack.data[stack.top] = value;
     return true;
 }
 
