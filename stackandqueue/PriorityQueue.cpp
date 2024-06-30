@@ -23,7 +23,7 @@ typedef struct QNode {
  * @return 返回队列头结点
  */
 QNode* enQueue(QNode*& head, int data, int high) {
-    QNode* node = (QNode*) malloc(sizeof(QNode));
+    QNode *node = (QNode*) malloc(sizeof(QNode));
     node->data = data;
     node->high = high;
     node->next = NULL;

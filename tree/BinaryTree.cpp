@@ -12,7 +12,7 @@ typedef struct BTNode {
 } BTNode;
 
 void init(BTNode*& root) {
-    root = (BTNode*)malloc(sizeof(BTNode));
+    root = (BTNode*) malloc(sizeof(BTNode));
     root->left = NULL;
     root->right = NULL;
 }
@@ -28,7 +28,7 @@ void createByPre(BTNode*& root) {
     if (data == '#') {
         root = NULL;
     } else {
-        root = (BTNode*)malloc(sizeof(BTNode));
+        root = (BTNode*) malloc(sizeof(BTNode));
         root->data = data;
         createByPre(root->left);
         createByPre(root->right);
@@ -154,7 +154,7 @@ void postNonRecursion(BTNode* root) {
 }
 
 /**
- * 层次遍历 使用到栈
+ * 层次遍历 使用到队列
  * @param root
  */
 void level(BTNode* root) {

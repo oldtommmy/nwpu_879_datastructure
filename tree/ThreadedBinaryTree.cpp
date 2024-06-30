@@ -32,7 +32,7 @@ void createByPre(TBTNode *&root) {
  * @param cur 当前结点
  * @param pre 上一个访问的结点
  */
-void changeToInOrderThreadedTree(TBTNode *cur, TBTNode *&pre) {
+void changeToInOrderThreadedTree(TBTNode *&cur, TBTNode *&pre) {
     if (cur == NULL) {
         return;
     }
@@ -55,14 +55,14 @@ void toTBT(TBTNode *root) {
     TBTNode *pre = NULL;
     if (root != NULL) {
         changeToInOrderThreadedTree(root, pre);
-        pre->rTag = 1;
-        pre->rChild = NULL;
+        root->lTag = 0;
+        root->lChild = pre;
     }
 }
 
 //找最左结点
 TBTNode *first(TBTNode *root) {
-    while (root->lChild != nullptr) {
+    while (root->lChild != NULL) {
         root = root->lChild;
     }
     return root;
