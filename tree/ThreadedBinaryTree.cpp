@@ -62,7 +62,7 @@ void toTBT(TBTNode *root) {
 
 //找最左结点
 TBTNode *first(TBTNode *root) {
-    while (root->lChild != NULL) {
+    while (root->lChild != NULL && root->lTag == 0) {
         root = root->lChild;
     }
     return root;

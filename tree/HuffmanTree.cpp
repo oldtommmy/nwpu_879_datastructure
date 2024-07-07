@@ -14,7 +14,7 @@ typedef struct HTNode {
 } HTNode;
 
 // 选择两个权值最小的 结点 下标 s1 s2 为这两个结点的下标 n 为当前结点个数
-void selectMinWeight(HTNode* ht, int& s1, int& s2, int n) {
+void selectMinWeight(HTNode* ht, int& s1, int& s2, int n, int parent) {
     // 找到两个权值最小的结点下标
     s1 = s2 = 0;
     for (int i = 1; i <= n; i++) {
@@ -29,7 +29,7 @@ void selectMinWeight(HTNode* ht, int& s1, int& s2, int n) {
     }
 
     // 将已经选择的结点标记为已用
-    ht[s1].parent = ht[s2].parent = n + 1;
+    ht[s1].parent = ht[s2].parent = parent;
 }
 
 
@@ -52,7 +52,7 @@ void create(HTNode*& ht, int n) {
     // 开始构造 每次拿两个权值最小的结点 然后将生成的结点放入ht中
     int s1, s2;
     for (int i = n + 1; i <= m; i++) { // 构造的新结点放在 n + 1 到 m 中
-        selectMinWeight(ht, s1, s2, n);
+        selectMinWeight(ht, s1, s2, n, i);
         ht[i].weight = ht[s1].weight + ht[s2].weight;
     }
 }
