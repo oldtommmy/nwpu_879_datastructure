@@ -15,10 +15,6 @@ int visited[MAXSIZE]; // 访问标记数组
  * @param v 起始顶点
  */
 void DFSByMGraph(MGraph G, int v) {
-    for (int i = 0; i < G.n; i++) {
-        visited[i] = 0;
-    }
-
     SeqStack stack;
     init(stack);
     cout << v << " ";
@@ -28,12 +24,11 @@ void DFSByMGraph(MGraph G, int v) {
     while (!empty(stack)) {
         int out; // 出栈元素
         pop(stack, out);
-        for (int w = 0; w < G.n; w++) { // 遍历所有顶点
+        for (int w = 0; w < G.n; w++) {
             if (G.edge[out][w] == 1 && visited[w] == 0) { // 与out相邻且未访问
                 cout << w << " "; // 访问 w
                 visited[w] = 1; // 标记 w 已访问
                 push(stack, w); // w 入栈
-                break;
             }
         }
     }
