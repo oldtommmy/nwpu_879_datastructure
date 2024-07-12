@@ -87,8 +87,8 @@ int main() {
     LinkedQueue *queue;
     int value;
     init(queue);
-    for (int i = 0; i < 10; ++i) {
-        offer(queue,i + 1);
+    for (int i = 0; i < 20; ++i) {
+        offer(queue,i);
     }
     while (!empty(queue)) {
         poll(queue, value);

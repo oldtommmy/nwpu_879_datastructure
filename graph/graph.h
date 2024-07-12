@@ -4,11 +4,14 @@
 
 #ifndef NWPU_GRAPH_H
 #define NWPU_GRAPH_H
-#define MAXSIZE 999999
+#define MAXSIZE 10
 #define VertexType int
 
 #endif //NWPU_GRAPH_H
 #include <cstdio>
+#include <iostream>
+
+using namespace std;
 
 /**
  * 邻接矩阵

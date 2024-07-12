@@ -163,20 +163,20 @@ void level(BTNode* root) {
     front = rear = 0;
     BTNode* cur;
     if (root != NULL) {
-        rear = (rear + 1) % MAXSIZE;
         queue[rear] = root;
+        rear = (rear + 1) % MAXSIZE;
         while (front != rear) {
-            front = (front + 1) % MAXSIZE;
             cur = queue[front];
+            front = (front + 1) % MAXSIZE;
             printf("%c ", cur->data);
             if (cur->left != NULL) {
-                rear = (rear + 1) % MAXSIZE;
                 queue[rear] = cur->left;
+                rear = (rear + 1) % MAXSIZE;
             }
 
             if (cur->right != NULL) {
-                rear = (rear + 1) % MAXSIZE;
                 queue[rear] = cur->right;
+                rear = (rear + 1) % MAXSIZE;
             }
         }
     }

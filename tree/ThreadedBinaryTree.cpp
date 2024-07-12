@@ -55,8 +55,10 @@ void toTBT(TBTNode *root) {
     TBTNode *pre = NULL;
     if (root != NULL) {
         changeToInOrderThreadedTree(root, pre);
-        root->lTag = 0;
-        root->lChild = pre;
+        if (root->lChild == NULL) {
+            root->lTag = 1;
+            root->lChild = pre;
+        }
     }
 }
 
