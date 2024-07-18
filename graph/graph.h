@@ -34,7 +34,7 @@ typedef struct ArcNode{
  */
 typedef struct VNode{
     int data; // 顶点信息
-    int count; // 出度
+    int count; // 入度 之后会用于拓扑排序
     struct ArcNode* first; // 指向第一条边的指针
 } VNode;
 

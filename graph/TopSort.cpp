@@ -2,35 +2,40 @@
 // Created by 陈远航 on 2023/11/12.
 //
 #include "graph.h"
+#include "SeqStack.h"
 
-int topSort(AGraph *G) {
-    int i, top = -1, pop, n = G->n;
-    //首先用栈将入度为0的存储起来
-    int stack[MAXSIZE];
-    for(i = 0; i < G->n; i++) {
+bool topSort(AGraph *G) {
+    SeqStack stack;
+    init(stack);
+
+    // 入度为0的顶点入栈
+    for (int i = 0; i < G->n; ++i) {
         if (G->adjList[i].count == 0) {
-            stack[++top] = i;
+            push(stack, i);
         }
     }
-    //每次输出入度 为0的 并把以它出发的边去掉
-    while (top != -1) {
-        pop = stack[--top];
-        ArcNode *p = G->adjList[pop].first;
-        printf("%d", pop);
-        n--;
-        while (p != nullptr) {
-            G->adjList[p->adjvex].count--;
-            if (G->adjList[p->adjvex].count == 0) {
-                stack[++top] = p->adjvex;
+
+    int count = 0; // 计数
+    while (!empty(stack)) {
+        int v;
+        pop(stack, v);
+        cout << v << " ";
+        count++;
+        ArcNode *p = G->adjList[v].first;
+        while (p) {
+            int w = p->adjVex;
+            G->adjList[w].count--;
+            if (G->adjList[w].count == 0) {
+                push(stack, w);
             }
             p = p->next;
         }
     }
 
-    if(n == 0) {
-        return 1;
-    } else {
-        return 0;
+    if (count < G->n) { // 有回路
+        return false;
+    } else { // 无回路
+        return true;
     }
 }
 
