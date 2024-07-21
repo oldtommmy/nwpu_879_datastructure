@@ -7,6 +7,8 @@
 
 using namespace std;
 
+void show(vector<int> nums);
+
 /**
  * 直接插入排序 升序
  * 1. 每次排序都能将新的元素，插入至前面、已经排好序的数组中的正确位置
@@ -82,15 +84,12 @@ void shellSort(vector<int> &nums) {
     int temp, i, j, inc;
     //一般我们设置初始增量为 n / 2（数组长度一半）， 之后每过一轮缩小一倍
     for (inc = nums.size() / 2; inc > 0; inc /= 2) {
-        //每一轮
-        //⭐️此处最难理解：我们是逐渐增加子序列的长度的，最开始
-        //只把一段子序列中的两个元素拿出来当一个数列，并对其执行直接选择排序
-        //然后i++直到下一个inc时，又给这个子序列加了一个元素，而前面的子序列已经有序
+
+        //序列内部使用直接插入排序
         for (i = inc; i < nums.size(); i++) {
-            //序列内部使用直接插入排序
             temp = nums[i];
             j = i - inc;
-            //这里我们会从后往前将整个以inc为增量的数组再完成一个直接插入
+            //这里我们会从后往前将整个以inc为增量的相隔开的元素组成的数组完成一个直接插入
             while (j >= 0 && nums[j] > temp) {
                 nums[j + inc] = nums[j];
                 j -= inc;
@@ -103,8 +102,8 @@ void shellSort(vector<int> &nums) {
 /**
  * 快速排序：分制的思想 （不稳定）
  * 1. 每次选择一个基准 pivot 作为比较的参考，比基准小的放前面，大的放后面
- * 2. 每次完成一轮  1 的操作，我们选择的 pivot 就已经在正确的位置上
- * 3. 我们对 pivot 前和后面的子数组在进行如上的排序
+ * 2. 每次完成一轮 step1 的操作，我们选择的 pivot 就已经处在正确的位置上
+ * 3. 我们对 pivot 所划分的两个子数组再次进行如上的步骤
  * 4. 每次选择 pivot 都是选择的是数组的第一个元素
  * 时间复杂度
  * 最好：O(nlog2n)
@@ -113,29 +112,29 @@ void shellSort(vector<int> &nums) {
  */
 void quickSort(vector<int> &nums, int low, int high) {
 
-    // ij双指针 i在后 j在前遍历
-    // 当j的元素小于pivot的值时 交换ij的元素（第一轮的pivot 常选第一个）
-    // 即把比基准pivot小的放到前面去 然后更新i++
-    int i = low, j = high, temp;
+    // ij双指针 i在前 j在后遍历
+    // 当j的元素小于pivot或i的元素大于pivot 交换ij的元素
+    int i = low, j = high, pivot;
     if (low < high) {
-        temp = nums[low];
-        while (i < j) {
-            while (i < j && nums[j] >= temp) {
+        pivot = nums[low]; // 选择第一个元素作为基准
+        while (i < j) { // i == j 时退出
+            while (i < j && nums[j] >= pivot) { // 从后往前找到比基准小的 while 结束时 nums[j] < pivot
                 j--;
             }
-            if (i < j) {
+            if (i < j) { // 交换
                 swap(nums[i], nums[j]);
                 i++;
             }
-            while (i < j && nums[i] <= temp) {
+            while (i < j && nums[i] <= pivot) { // 从前往后找到比基准大的 while 结束时 nums[i] > pivot
                 i++;
             }
             if (i < j) {
-                swap(nums[i], nums[j]);
+                swap(nums[i], nums[j]); // 交换
                 j--;
             }
         }
-        //此时high所在的元素就被放到了正确的位置 i 上
+        show(nums); // 每轮划分的结果
+        // 递归调用 对左右两个子数组进行排序 i == j 此时的位置就是基准的位置 也就是说基准已经在正确的位置上了
         quickSort(nums, low, i - 1);
         quickSort(nums, i + 1, high);
     }
@@ -213,9 +212,9 @@ void deleteHeapTop(vector<int> &nums, int &n) {
     }
 
     /** 排序
-     * 1. 第一次交换最后一个和第一个也就是堆顶的元素
-     * 2. 将最后一个元素 移除堆 然后对堆顶的元素进行堆的维护
-     * 3. 然后接着继续对前一个元素做相同操作
+     * 1. 第一次交换 最后一个 和 第一个 （也就是堆顶的元素，堆顶永远是最大值）
+     * 2. 将最后一个元素 移除堆 （此时堆顶的最大的那个元素已经放在了数组的最后一个位置）
+     * 3. 对堆顶的元素重新进行堆的维护，然后接着继续对此时的堆做step1、2的相同操作
      * 4. 直到只剩下一个元素 不用再继续去操作
      */
      for (i = nums.size() - 1; i > 0; i--) {
@@ -327,28 +326,35 @@ void show(vector<int> nums) {
     for (int i = 0; i < nums.size(); ++i) {
         cout << nums[i] << " ";
     }
+    cout << endl;
 }
 
 
 int main() {
-    vector<int> nums = {1, 79, 23, 4, -1, 332, 34, 112};
+    vector<int> nums;
+    cout << "input nums: ";
+    for (int i = 0; i < 7; ++i) {
+        int num;
+        cin >> num;
+        nums.push_back(num);
+    } // 4 2 5 1 7 6 3
     //insertSort(nums);
     //insertSortByHalf(nums);
     //shellSort(nums);
-    //quickSort(nums, 0, nums.size() - 1);
-    selectSort(nums);
+    quickSort(nums, 0, nums.size() - 1);
+    //selectSort(nums);
     int numArr[8] = {1, 79, 23, 4, -1, 332, 34, 112};
     //heapSort(nums);
-    int *tempArrForMerge = (int *) ::malloc(8 * sizeof(int));
-    mergeSort(numArr, tempArrForMerge, 0, 7);
-    free(tempArrForMerge);
-    cout << "mergeSort:";
-    for (int i = 0; i < 8; ++i) {
-        cout << numArr[i] << " ";
-    }
-    cout << endl;
+    //int *tempArrForMerge = (int *) ::malloc(8 * sizeof(int));
+    //mergeSort(numArr, tempArrForMerge, 0, 7);
+    //free(tempArrForMerge);
+    //cout << "mergeSort:";
+//    for (int i = 0; i < 8; ++i) {
+//        cout << numArr[i] << " ";
+//    }
+//    cout << endl;
     //bubbleSort(nums, 8);
-    cout << "select:";
+    //cout << "select:";
     show(nums);
     return 0;
 }
