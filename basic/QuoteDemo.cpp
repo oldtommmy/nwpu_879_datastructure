@@ -20,8 +20,8 @@ void sum(int a) {
 int main(){
     int n1 = 10;
     sum(n1);
-    std::cout<<"n1:"<<n1<<std::endl;
+    std::cout<<"n1:"<<n1<<std::endl; // n1:10
     sumWithQuote(n1);
-    std::cout<<"n1:"<<n1<<std::endl;
+    std::cout<<"n1:"<<n1<<std::endl; // n1:20
     return 0;
 }

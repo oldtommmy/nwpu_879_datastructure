@@ -53,15 +53,15 @@ void Kruskal(MGraph G, int &sum) {
     // 对边集数组按权值从小到大排序
     // 此处使用冒泡排序
     for (int i = 0; i < e - 1; ++i) {
-        bool flag = false;
+        bool flag = false; // 优化
         for (int j = 0; j < e - i - 1; ++j) {
             if (edges[j].weight > edges[j + 1].weight) {
                 swap(edges[j], edges[j + 1]);
-                flag = true;
+                flag = true; // 有交换
             }
         }
         if (!flag) {
-            break;
+            break; // 没有交换 说明已经有序
         }
     }
 

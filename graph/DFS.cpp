@@ -17,18 +17,16 @@ int visited[MAXSIZE]; // 访问标记数组
 void DFSByMGraph(MGraph G, int v) {
     SeqStack stack;
     init(stack);
-    cout << v << " ";
-    visited[v] = 1;
     push(stack, v); // 入栈
 
     while (!empty(stack)) {
         int out; // 出栈元素
         pop(stack, out);
-        for (int w = 0; w < G.n; w++) {
-            if (G.edge[out][w] == 1 && visited[w] == 0) { // 与out相邻且未访问
-                cout << w << " "; // 访问 w
-                visited[w] = 1; // 标记 w 已访问
-                push(stack, w); // w 入栈
+        cout << out << " ";
+        visited[out] = 1;
+        for (int i = 0; i < G.n; ++i) {
+            if (G.edge[out][i] == 1 && visited[i] == 0) {
+                push(stack, i);
             }
         }
     }
@@ -62,22 +60,22 @@ void dfsByMGraph(MGraph G) {
 
     SeqStack stack;
     init(stack);
-    cout << v << " ";
-    visited[v] = 1;
     push(stack, v); // 入栈
+
     while (!empty(stack)) {
         int out; // 出栈元素
         pop(stack, out);
+        cout << out << " ";
+        visited[out] = 1;
         ArcNode *p = G.adjList[out].first;
         while (p != nullptr) {
-            if (visited[p->adjVex] == 0) { // 未访问
-                cout << p->adjVex << " "; // 访问
-                visited[p->adjVex] = 1; // 标记已访问
-                push(stack, p->adjVex); // 入栈
-                p = p->next;
+            if (visited[p->adjVex] == 0) {
+                push(stack, p->adjVex);
             }
+            p = p->next;
         }
     }
+
  }
 
 /** 避免非联通图的情况

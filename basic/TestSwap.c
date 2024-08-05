@@ -20,5 +20,10 @@ int main()
     for (int i = 0; i < 3; ++i) {
         printf("%d ", nums[i]);
     }
+    printf("\n");
+
+    for (int i = 0; i < 3; ++i) {
+        printf("%d ", nums1[i]);
+    }
     return 0;
 }

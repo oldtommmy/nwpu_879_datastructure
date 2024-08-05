@@ -110,6 +110,8 @@ void bfsByAGraph(AGraph G) {
 
  /**
   * 获取两个顶点之间的最短距离 其中 v 是起始顶点 w 是终止顶点
+  * 思想：广度优先搜索，每次遍历到一个顶点，就将其加入到队列中，然后再遍历与其相邻的顶点
+  * 直到遍历到终止顶点，此时的距离就是最短距离，因为广度优先搜索是逐层遍历的
   * 不带权图的最短路径
   * @param G  图
   * @param v  起始顶点
@@ -129,13 +131,13 @@ void bfsByAGraph(AGraph G) {
 
      int distance[G.n]; // 距离数组
      for (int i = 0; i < G.n; i++) {
-         distance[i] = -1;
+         distance[i] = -1; // distance[i] 指的是 v 到 i 的距离
      }
      distance[v] = 0;
 
      while (!empty(queue)) {
          int u; // 出队元素
-         poll(queue, u);
+         poll(queue, u); // 出队
          for (int x = 0; x < G.n; x++) { // 遍历所有顶点
              if (G.edge[u][x] == 1 && visited[x] == 0) { // 与u相邻且未访问
                  visited[x] = 1; // 标记 x 已访问

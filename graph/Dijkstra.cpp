@@ -7,12 +7,12 @@
 /**Dijkstra算法 解决单源最短路径问题
  * @param G 图
  * @param v 起始顶点
- * @param dist 最短路径长度 dist[i] = j 表示从v到i的最短路径长度
+ * @param dist 最短路径长度 dist[i] = j 表示从v到i的最短路径长度j
  * @param path 最短路径 path[i] = j 表示从v到i的最短路径经过j
  */
 void dijkstra(MGraph G, int v, int dist[], int path[]) {
     int n = G.n;
-    int set[n]; // s[i] = 1 表示顶点i已经加入s中
+    int set[n]; // set[i] = 1 表示顶点i已经加入set中
     for (int i = 0; i < n; ++i) { // 初始化
         dist[i] = G.edge[v][i];
         set[i] = 0;

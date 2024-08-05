@@ -92,9 +92,4 @@ void huffmanEncoding(HTNode*& ht, HuffmanCode &hc, int n) {
     }
 
     delete[] code; // 删除临时数组 code
-    // 在使用完hc后，释放所有分配的内存
-    for (int i = 1; i <= n; i++) {
-        delete[] hc[i]; // 释放每个编码字符串的内存
-    }
-    delete[] hc; //删除临时数组 hc
 }

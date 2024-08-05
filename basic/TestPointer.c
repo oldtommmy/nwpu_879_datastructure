@@ -10,8 +10,8 @@ void change(int *a) {
 int main()
 {
     int a = 1;
-    printf("%d\n", &a);
+    printf("%d\n", a); // 1
 
     change(&a);
-    printf("%d", &a);
+    printf("%d", a); // 12
 }
